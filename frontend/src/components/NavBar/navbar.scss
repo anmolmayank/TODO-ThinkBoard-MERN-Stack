@@ -1,0 +1,15 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #282c34;
+  color: white;
+}
+.nav-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+.nav-button {
+  // Styles for the button can be added here if needed
+}
