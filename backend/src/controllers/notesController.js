@@ -1,10 +1,10 @@
 import Note from "../models/note.js";
 
-export async function getNotes(_, res) {
+export async function getNotes(req, res) {
   try {
     // const notes = await Note.find().sort({ createdAt: -1 }); // Sort by creation date descending
     // Sort by updatedAt if available, otherwise by createdAt
-    const notes = await Note.aggregate([
+    const notes = await Note.find({ userId: req.user.userId }).aggregate([
       {
         $addFields: {
           sortDate: {
@@ -42,7 +42,7 @@ export async function getNoteById(req, res) {
 export async function createNote(req, res) {
   try {
     const { title, content } = req.body;
-    const newNote = new Note({ title, content });
+    const newNote = new Note({ title, content, userId: req.user.userId, });
     const addedNote = await newNote.save();
     return res.status(201).json(addedNote);
   } catch (error) {
@@ -57,7 +57,7 @@ export async function updateNote(req, res) {
     const { title, content } = req.body;
 
     const updatedNote = await Note.findByIdAndUpdate(
-      id,
+      {id, userId: req.user.userId},
       { title, content },
       { new: true }
     );
@@ -74,7 +74,7 @@ export async function updateNote(req, res) {
 export async function deleteNote(req, res) {
   try {
     const { id } = req.params;
-    const deletedNote = await Note.findByIdAndDelete(id);
+    const deletedNote = await Note.findByIdAndDelete({id, userId: req.user.userId});
     if (!deletedNote) {
       return res.status(404).json({ message: "Note not found" });
     }

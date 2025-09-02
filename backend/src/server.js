@@ -4,6 +4,8 @@ import { connectDB } from './config/db.js';
 import dotenv from 'dotenv';
 import rateLimiter from './middleware/rateLimiter.js';
 import cors from "cors";
+import authUserRouter from './routes/authUserRouter.js';
+import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
@@ -12,8 +14,10 @@ connectDB();
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(rateLimiter);
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({credentials: true}));
 
+app.use("/api/auth", authUserRouter);
 app.use("/api/notes", noteRoutes);
 
 connectDB().then(() => {
