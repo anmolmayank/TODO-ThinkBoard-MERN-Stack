@@ -21,8 +21,8 @@ export default function HomePage() {
         {noteData.loading && <p>Loading...</p>}
         {!noteData.loading &&
           !noteData.error &&
-          noteData.data &&
-          noteData.data.map((note) => (
+          noteData?.data &&
+          noteData.data?.map((note) => (
             <Grid key={note._id}>
               <NoteCrad
                 key={note._id}

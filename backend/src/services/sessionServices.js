@@ -13,8 +13,8 @@ export const createSession = async (user, refreshToken, expiresInDays = 7) => {
  * Find a session by userId and refresh token
  * Returns a query so populate can work
  */
-export const findSession = (userId) => {
-  return Session.findOne({ user: userId }).populate("user");
+export const findSession = (userId, token) => {
+  return Session.findOne({ user: userId, refreshToken: token }).populate("user");
 };
 
 // Single current session logout

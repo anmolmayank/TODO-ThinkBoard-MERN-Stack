@@ -8,7 +8,7 @@ const router = express.Router();
 // Routes with rate limiter applied
 router.post('/register', rateLimiter, register);
 router.post('/login', rateLimiter, login);
-router.post('/refresh', rateLimiter, refresh);
+router.post('/refresh', authenticateToken, rateLimiter, refresh);
 router.post('/logout', authenticateToken, rateLimiter, logout);
 
 export default router;
