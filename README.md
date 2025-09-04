@@ -36,6 +36,7 @@ REFRESH_TOKEN_EXPIRY=7d
 RESET_PASSWORD_TOKEN_EXPIRY=1h
 COOKIE_SECURE=false
 
+# App Screenshots:
 *********************************************************************************************************************************************************************
 
 [Registration Page:]
