@@ -8,7 +8,7 @@ export const fetchGetAllNotes = createAsyncThunk(
         try {
             const response = await apiGet<INoteType[]>('/notes');
             if (response.status !== 200) {
-                enqueueSnackbar('Something went wrong', { variant: 'error' });
+                enqueueSnackbar('Failed to fetch notes', { variant: 'error' });
                 throw new Error(response.message || 'Failed to fetch notes');
             }
             enqueueSnackbar('Fetched all Notes', { variant: 'success' });

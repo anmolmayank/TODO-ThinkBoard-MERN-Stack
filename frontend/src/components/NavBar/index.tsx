@@ -1,11 +1,15 @@
-import { Button, Typography } from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { Box, Button, Typography } from '@mui/material';
+import { Add, LogoutRounded } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 import './navbar.scss';
 import { enqueueSnackbar } from 'notistack';
+import { useAppDispatch } from '../../hooks/storeHooks';
+import { fetchLogout } from '../../store/thunks/fetchAuthOps';
+import { setLogout } from '../../store/slices/AuthSlice';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // OnClick handler
   const handleAddNote = () => {
@@ -14,23 +18,34 @@ const Navbar = () => {
     navigate('/create');
   };
 
+  // Logout
+const handleLogout = () => {
+  dispatch(fetchLogout()).unwrap();
+  dispatch(setLogout())
+  navigate("/login");
+}
   return (
     <header>
       <div className="nav-container">
-        <Typography variant="h5" component="h5" className='nav-title'>
+        <Typography variant="h5" component="h5" className="nav-title">
           Todo - ThinkBoard
         </Typography>
-        <Button
-          variant="outlined"
-          startIcon={<Add />}
-          onClick={() => handleAddNote()}
-          className="nav-butoon"
-          color="info"
-          size="medium"
-        >
-          {' '}
-          Add New Note
-        </Button>
+        <Box gap={1} display={'flex'}>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            onClick={() => handleAddNote()}
+            className="nav-butoon"
+            color="info"
+            size="medium"
+          >
+            {' '}
+            Add New Note
+          </Button>
+          <Button type="button" variant="contained" color={'error'} endIcon={<LogoutRounded/>} onClick={() => handleLogout()}>
+            Logout
+          </Button>
+        </Box>
       </div>
     </header>
   );
