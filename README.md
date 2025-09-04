@@ -1,9 +1,10 @@
 # TODO-ThinkBoard
-This is a simple todo app with all the latest trends and usage of a full-stack app using MERN Stack. MongoDB + Express + Node + [Vite + React + TS].
+This is a simple todo app incorporating the latest trends and full-stack app development using the MERN Stack. MongoDB + Express + Node + [Vite + React + TS].
 
 # Key-Highlights:
 * Full backend authorization with JWT and session management
 * RateLimiter Integration.
+* CURD Operation - On MongoDB
 * Each user has their own ThinkPad.
 * Complete end-to-end Registration, Login, Refresh, and Logout Flow integrated. 
 
