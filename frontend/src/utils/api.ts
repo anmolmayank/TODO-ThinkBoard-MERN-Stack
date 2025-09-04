@@ -4,15 +4,11 @@ import type { ApiResponse } from '../types/apiType';
 // Generic GET
 export const apiGet = async <T>(
   url: string,
-  config = {}
+  config: Record<string, any> = {}
 ): Promise<ApiResponse<T>> => {
   try {
     const response = await axiosInstance.get<T>(url, config);
-    return {
-      data: response.data,
-      status: response.status,
-      message: 'Success',
-    };
+    return { data: response.data, status: response.status, message: 'Success' };
   } catch (error: any) {
     return {
       data: null,
@@ -26,7 +22,7 @@ export const apiGet = async <T>(
 export const apiPost = async <T>(
   url: string,
   data: unknown,
-  config = {}
+  config: Record<string, any> = {}
 ): Promise<ApiResponse<T>> => {
   try {
     const response = await axiosInstance.post<T>(url, data, config);
@@ -48,7 +44,7 @@ export const apiPost = async <T>(
 export const apiPut = async <T>(
   url: string,
   data: unknown,
-  config = {}
+  config: Record<string, any> = {}
 ): Promise<ApiResponse<T>> => {
   try {
     const response = await axiosInstance.put<T>(url, data, config);
@@ -69,7 +65,7 @@ export const apiPut = async <T>(
 // Generic DELETE
 export const apiDelete = async <T>(
   url: string,
-  config = {}
+  config: Record<string, any> = {}
 ): Promise<ApiResponse<T>> => {
   try {
     const response = await axiosInstance.delete<T>(url, config);

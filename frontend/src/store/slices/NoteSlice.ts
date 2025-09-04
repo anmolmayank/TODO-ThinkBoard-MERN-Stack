@@ -10,7 +10,7 @@ const initialState: IGetAllNoteSlice = {
   error: null,
   loading: false,
   isEdit: false,
-  editId: "",
+  editId: '',
 };
 
 const NoteSlice = createSlice({
@@ -21,7 +21,7 @@ const NoteSlice = createSlice({
       state.isEdit = action.payload || false;
     },
     setEditId: (state, action: PayloadAction<string>) => {
-      state.editId = action.payload || "";
+      state.editId = action.payload || '';
     },
     // addNote: (state, action: PayloadAction<Note>) => {
     //     state.notes.push(action.payload);
@@ -64,7 +64,9 @@ const NoteSlice = createSlice({
       })
       .addCase(fetchDeleteNote.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = state.data?.filter(note => note._id !== action.meta.arg) || state.data;
+        state.data =
+          state.data?.filter((note) => note._id !== action.meta.arg) ||
+          state.data;
       })
       .addCase(fetchDeleteNote.rejected, (state, action) => {
         state.loading = false;
@@ -82,7 +84,7 @@ const NoteSlice = createSlice({
       .addCase(fetchUpdateNote.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch notes';
-      });      
+      });
   },
 });
 export const { editMode, setEditId } = NoteSlice.actions;

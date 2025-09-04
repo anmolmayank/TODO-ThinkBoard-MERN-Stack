@@ -3,3 +3,9 @@ export interface ApiResponse<T> {
   status: number;
   message: string;
 }
+
+export interface IUserRegisterPayload {
+  name?: string;
+  email: string;
+  password: string;
+}

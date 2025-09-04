@@ -9,7 +9,22 @@
     "start": "npm run dev --prefix backend && npm run dev --prefix frontend",
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
   },
-  "keywords": ["React", "Vite", "TypeScript", "Express", "MongoDB", "MERN", "Full Stack", "Todo App", "ThinkBoard", "Web Development", "JavaScript", "Node.js", "Frontend", "Backend"],
+  "keywords": [
+    "React",
+    "Vite",
+    "TypeScript",
+    "Express",
+    "MongoDB",
+    "MERN",
+    "Full Stack",
+    "Todo App",
+    "ThinkBoard",
+    "Web Development",
+    "JavaScript",
+    "Node.js",
+    "Frontend",
+    "Backend"
+  ],
   "author": "Anmol Mayank",
   "license": "ISC",
   "type": "commonjs",

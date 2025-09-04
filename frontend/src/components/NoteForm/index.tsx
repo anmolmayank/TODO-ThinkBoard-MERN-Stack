@@ -81,12 +81,12 @@ export function NoteForm({
       dispatch(fetchUpdateNote(updatedPayload));
       dispatch(editMode(false));
       dispatch(setEditId(''));
-      navigate('/');
+      navigate('/HomePage');
     } else {
       // Create a new note
       dispatch(fetchPostNote(requestPayload));
       if (notes.loading === false && notes.error === null) {
-        navigate('/');
+        navigate('/HomePage');
       }
     }
   };

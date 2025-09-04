@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, CircularProgress, Grid } from '@mui/material';
 import Navbar from '../components/NavBar';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../hooks/storeHooks';
@@ -17,12 +17,20 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <Grid container spacing={2} marginTop={2} rowGap={2} rowSpacing={2} columnGap={2} columnSpacing={2}>
-        {noteData.loading && <p>Loading...</p>}
+      <Grid container spacing={2} marginTop={2} rowGap={2} rowSpacing={2} columnGap={2} columnSpacing={2} minHeight={'50%'} minWidth={50}>
+        {noteData.loading && <Box sx={{
+            display: 'flex',
+            width: '100vw',
+            height: '100vh',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <CircularProgress/>
+          </Box>}
         {!noteData.loading &&
           !noteData.error &&
-          noteData.data &&
-          noteData.data.map((note) => (
+          noteData?.data &&
+          noteData.data?.map((note) => (
             <Grid key={note._id}>
               <NoteCrad
                 key={note._id}
