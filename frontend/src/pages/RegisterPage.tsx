@@ -5,17 +5,71 @@ import {
   TextField,
   FormGroup,
   Button,
+  CircularProgress,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useAppDispatch } from '../hooks/storeHooks';
 import { fetchRegisterUser } from '../store/thunks/fetchAuthOps';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store/store';
+import { useNavigate } from 'react-router';
 
 export default function RegisterPage(): React.ReactElement {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const dispatch = useAppDispatch();
+  const loading = useSelector((state: RootState) => state.auth.loading);
+  const navigate = useNavigate();
 
+  // Validation method
+  const isValidInputs = (): boolean => {
+    let isValid = true;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const numRegex = /^\d+$/;
+
+    // Validate name
+    if (!name.trim() || numRegex.test(name)) {
+      setNameError('Name cannot be empty or numeric only');
+      isValid = false;
+    } else {
+      setNameError('');
+    }
+
+    // Validate email
+    if (!emailRegex.test(email)) {
+      setEmailError('Invalid email address');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+
+    // Validate password
+    if (!password.trim()) {
+      setPasswordError('Password is required');
+      isValid = false;
+    } else if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
+      isValid = false;
+    } else {
+      setPasswordError('');
+    }
+
+    return isValid;
+  };
+
+  // For reseting the state to initial
+  const resetLocalState = () => {
+    setEmail('');
+    setName('');
+    setPassword('');
+  };
+
+  // Onclik Register Event Handler Method
   const handleRegister = () => {
     // Create payload for post method of Register
     const requestPayload = {
@@ -23,14 +77,11 @@ export default function RegisterPage(): React.ReactElement {
       email,
       password,
     };
-    dispatch(fetchRegisterUser(requestPayload));
-    resetLocalState();
-  };
-
-  const resetLocalState = () => {
-    setEmail('');
-    setName('');
-    setPassword('');
+    if (isValidInputs()) {
+      dispatch(fetchRegisterUser(requestPayload)).unwrap();
+      resetLocalState();
+      navigate("/login");
+    }
   };
 
   return (
@@ -41,14 +92,13 @@ export default function RegisterPage(): React.ReactElement {
       height={'100vh'}
       sx={{
         display: 'flex',
-        backgroundColor: '#551224',
       }}
     >
       <Paper
-        elevation={1}
+        elevation={5}
         square={false}
         sx={{
-          width: '45%',
+          width: '25%',
           padding: '36px',
         }}
       >
@@ -77,6 +127,8 @@ export default function RegisterPage(): React.ReactElement {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
+            error={nameError === '' ? false : true}
+            helperText={nameError}
           />
           <TextField
             label="Email"
@@ -91,6 +143,8 @@ export default function RegisterPage(): React.ReactElement {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
             }
+            error={emailError === '' ? false : true}
+            helperText={emailError}
           />
           <TextField
             label="Password"
@@ -105,6 +159,8 @@ export default function RegisterPage(): React.ReactElement {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
             }
+            error={passwordError === '' ? false : true}
+            helperText={passwordError}
           />
           <Button
             type="submit"
@@ -113,7 +169,7 @@ export default function RegisterPage(): React.ReactElement {
               handleRegister()
             }
           >
-            Register
+            {loading ? <CircularProgress color="info"/> : 'Register'}
           </Button>
           <Typography
             variant="subtitle2"
@@ -121,6 +177,7 @@ export default function RegisterPage(): React.ReactElement {
             justifyContent={'center'}
             sx={{
               display: 'flex',
+              padding: 2,
             }}
           >
             Already registered ? <a href="/login">Login here</a>

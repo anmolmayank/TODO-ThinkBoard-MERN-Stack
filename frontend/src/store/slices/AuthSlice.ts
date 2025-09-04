@@ -72,7 +72,6 @@ const authSlice = createSlice({
       .addCase(
         fetchRefreshToken.fulfilled,
         (state, action: PayloadAction<any>) => {
-          console.log('Coming In from Slice: ', action.payload);
           state.accessToken = action.payload.accessToken;
           state.user = action.payload.userId;
           state.isAuthenticated = true;

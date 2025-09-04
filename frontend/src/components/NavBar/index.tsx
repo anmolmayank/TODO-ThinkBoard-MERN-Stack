@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { Add, LogoutRounded } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 import './navbar.scss';
 import { enqueueSnackbar } from 'notistack';
@@ -32,7 +32,7 @@ const handleLogout = () => {
         </Typography>
         <Box gap={1} display={'flex'}>
           <Button
-            variant="outlined"
+            variant="contained"
             startIcon={<Add />}
             onClick={() => handleAddNote()}
             className="nav-butoon"
@@ -42,7 +42,7 @@ const handleLogout = () => {
             {' '}
             Add New Note
           </Button>
-          <Button type="button" variant="contained" onClick={() => handleLogout()}>
+          <Button type="button" variant="contained" color={'error'} endIcon={<LogoutRounded/>} onClick={() => handleLogout()}>
             Logout
           </Button>
         </Box>
